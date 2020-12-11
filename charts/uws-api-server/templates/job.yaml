@@ -6,13 +6,7 @@ metadata:
     app: uws-api-client
     chart: {{ template "uws-api-server.chart" . }}
 spec:
-  selector:
-    matchLabels:
-      app: uws-api-client
   template:
-    metadata:
-      labels:
-        app: uws-api-client
     spec:
       restartPolicy: Never
       containers:
