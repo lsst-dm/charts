@@ -1,19 +1,18 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "uws-api-client.fullname" . }}
+  name: uws-api-client
   labels:
-    app: {{ template "uws-api-client.fullname" . }}
+    app: uws-api-client
     chart: {{ template "uws-api-server.chart" . }}
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "uws-api-client.fullname" . }}
+      app: uws-api-client
   template:
     metadata:
       labels:
-        app: {{ template "uws-api-client.fullname" . }}
+        app: uws-api-client
     spec:
       restartPolicy: Never
       containers:
