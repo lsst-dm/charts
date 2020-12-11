@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "uws-api-server.fullname" . }}
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "uws-api-server.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "uws-api-server.fullname" . }}
+    spec:
+      containers:
+      - name: uws-api-server
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: API_DOMAIN
+            # Initially use the internal service name
+            value: {{ template "uws-api-server.fullname" . }}
+          - name: API_PORT
+            value: 8080
+        
