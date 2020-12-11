@@ -3,6 +3,18 @@ entries:
   uws-api-server:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2020-12-11T19:06:33.707549597Z"
+    description: Universal Worker Service API Server
+    digest: 4a58b5d0aa1458e4c50b1220c9b5eb1e8c3af9c42dc4eaf4130a1b642f4abd1a
+    home: https://github.com/lsst-dm/uws-api-server
+    maintainers:
+    - name: Timothy Andrew Manning
+    name: uws-api-server
+    urls:
+    - https://github.com/lsst-dm/charts/releases/download/uws-api-server-0.2.1/uws-api-server-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2020-12-11T18:53:15.166121564Z"
     description: Universal Worker Service API Server
     digest: c84d57ad8ea711744c147e6ea423ae70c4c43a584954f2469a428341d5d783f4
