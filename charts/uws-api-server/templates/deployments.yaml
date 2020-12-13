@@ -28,3 +28,32 @@ spec:
             value: {{ template "uws-api-server.fullname" . }}
           - name: API_PORT
             value: "8080"
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uws-api-client
+  labels:
+    app: uws-api-client
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: uws-api-client
+  template:
+    metadata:
+      labels:
+        app: uws-api-client
+    spec:
+      containers:
+      - name: uws-api-client
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "cd client && python3 client.py"]
+        env:
+          - name: API_DOMAIN
+            value: {{ template "uws-api-server.fullname" . }}
+          - name: API_PORT
+            value: "8080"
+        
