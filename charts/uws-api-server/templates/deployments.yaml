@@ -50,7 +50,7 @@ spec:
       - name: uws-api-client
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "cd client && python3 client.py"]
+        command: ["/bin/bash", "-c", "sleep 3600"]
         env:
           - name: API_DOMAIN
             value: {{ template "uws-api-server.fullname" . }}
