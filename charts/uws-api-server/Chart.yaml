@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "1.0"
 description: Universal Worker Service API Server
 name: uws-api-server
-version: 0.2.3
+version: 0.2.4
 home: https://github.com/lsst-dm/uws-api-server
 maintainers:
   - name: Timothy Andrew Manning
