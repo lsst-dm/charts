@@ -28,7 +28,7 @@ spec:
             value: {{ template "uws-api-server.fullname" . }}
           - name: API_PORT
             value: "8080"
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
