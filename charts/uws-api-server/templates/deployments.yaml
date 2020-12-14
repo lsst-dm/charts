@@ -15,6 +15,7 @@ spec:
       labels:
         app: {{ template "uws-api-server.fullname" . }}
     spec:
+      serviceAccountName: job-manager
       containers:
       - name: uws-api-server
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -50,7 +51,7 @@ spec:
       - name: uws-api-client
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "sleep 3600"]
+        command: ["/bin/bash", "-c", "sleep 86400"]
         env:
           - name: API_DOMAIN
             value: {{ template "uws-api-server.fullname" . }}
