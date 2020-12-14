@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-job-scripts
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+data:
+  init.sh: |-
+    #!/bin/bash
+    
+    set -e
+
+    source /opt/lsst/software/stack/loadLSST.bash
+    setup lsst_distrib
+    eups list -s
