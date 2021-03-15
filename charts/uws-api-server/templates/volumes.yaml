@@ -29,3 +29,65 @@ spec:
   accessModes:
   - ReadOnlyMany
   storageClassName: ""
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-scratch
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: lsst-l1-cl-arctl.ncsa.illinois.edu
+    path: /scratch
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-scratch-pvc
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  storageClassName: ""
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-oods-comcam-pv
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: lsst-l1-cl-arctl.ncsa.illinois.edu
+    path: /data/lsstdata/NTS/comcam/oods/butler/repo
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-oods-comcam-pvc
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  storageClassName: ""
