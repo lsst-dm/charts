@@ -8,10 +8,12 @@ metadata:
     chart: {{ template "uws-api-server.chart" . }}
 data:
   init.sh: |-
-    #!/bin/bash
-    
-    set -e
+    #!/bin/bash -e
 
     source /opt/lsst/software/stack/loadLSST.bash
     setup lsst_distrib
-    eups list -s
+    
+    # Reference: https://pipelines.lsst.io/install/demo.html
+    cd "${UWS_TEST_DIR}"
+    setup -r .
+    ./bin/run_demo.sh
