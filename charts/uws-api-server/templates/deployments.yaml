@@ -16,11 +16,15 @@ spec:
         app: {{ template "uws-api-server.fullname" . }}
     spec:
       serviceAccountName: job-manager
+      volumes:
+      - name: job-files
+        persistentVolumeClaim:
+          claimName: nfs-scratch-pvc
       containers:
       - name: uws-api-server
-        securityContext:
-          runAsUser: 73006
-          runAsGroup: 73006
+        # securityContext:
+        #   runAsUser: 1001
+        #   runAsGroup: 1001
           # fsGroup: 73006
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
@@ -28,27 +32,17 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: data
-          mountPath: /lsstdata/offline/teststand
-        - name: scratch
-          # The mounted path was manually created by a sysadmin with the ownership 1001:1001
-          mountPath: /scratch/uws
-          subPath: uws
+        - name: job-files
+          mountPath: /uws
         env:
+          - name: "UWS_ROOT_DIR"
+            value: "/uws"
           - name: API_DOMAIN
-            # Initially use the internal service name
             value: {{ template "uws-api-server.fullname" . }}
           - name: API_PORT
             value: "8080"
           - name: LOG_LEVEL
             value: "DEBUG"
-      volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: nfs-data-pvc
-      - name: scratch
-        persistentVolumeClaim:
-          claimName: nfs-scratch-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -71,63 +65,9 @@ spec:
       - name: uws-api-client
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "sleep 86400"]
+        command: ["/bin/bash", "-c", "sleep 1000d"]
         env:
           - name: API_DOMAIN
             value: {{ template "uws-api-server.fullname" . }}
           - name: API_PORT
             value: "80"
-        
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: uws-job-tester
-#   labels:
-#     app: uws-job-tester
-#     chart: {{ template "uws-api-server.chart" . }}
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: uws-job-tester
-#   template:
-#     metadata:
-#       labels:
-#         app: uws-job-tester
-#     spec:
-#       volumes:
-#       - name: job-scripts
-#         configMap:
-#           name: test-job-scripts
-#       - name: data
-#         persistentVolumeClaim:
-#           claimName: nfs-data-pvc
-#       - name: scratch
-#         persistentVolumeClaim:
-#           claimName: nfs-scratch-pvc
-#       - name: nfs-oods-comcam
-#         persistentVolumeClaim:
-#           claimName: nfs-oods-comcam-pvc
-#       containers:
-#       - name: uws-job-tester
-#         # The container runs with UID:GID = 1000:1000
-#         image: 'lsstsqre/centos:7-stack-lsst_distrib-v21_0_0'
-#         imagePullPolicy: IfNotPresent
-#         command: ["/bin/bash", "-c", "sleep 86400"]
-#         env:
-#         - name: UWS_TEST_DIR
-#           value: /scratch/uws/data/pipelines_check-21.0.0
-#         volumeMounts:
-#         - name: job-scripts
-#           mountPath: '/opt/init.sh'
-#           subPath: 'init.sh'
-#         - name: data
-#           mountPath: /lsstdata/offline/teststand
-#         - name: scratch
-#           mountPath: /scratch/uws
-#           subPath: uws
-#         - name: nfs-oods-comcam
-#           mountPath: /data/lsstdata/comcam/oods/butler/repo
-#           readOnly: true
-

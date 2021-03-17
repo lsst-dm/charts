@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-data
+  name: {{ template "uws-api-server.fullname" . }}-nfs-data-pv
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
+    name: {{ template "uws-api-server.chart" . }}-nfs-data
 spec:
   capacity:
     storage: 1Gi
@@ -29,14 +30,18 @@ spec:
   accessModes:
   - ReadOnlyMany
   storageClassName: ""
+  selector:
+    matchLabels:
+      name: {{ template "uws-api-server.chart" . }}-nfs-data
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-scratch
+  name: {{ template "uws-api-server.fullname" . }}-nfs-scratch-pv
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
+    name: {{ template "uws-api-server.chart" . }}-nfs-scratch
 spec:
   capacity:
     storage: 1Gi
@@ -44,7 +49,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: lsst-l1-cl-arctl.ncsa.illinois.edu
-    path: /scratch
+    path: /scratch/uws
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -60,14 +65,18 @@ spec:
   accessModes:
   - ReadWriteMany
   storageClassName: ""
+  selector:
+    matchLabels:
+      name: {{ template "uws-api-server.chart" . }}-nfs-scratch
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-oods-comcam-pv
+  name: {{ template "uws-api-server.fullname" . }}-nfs-oods-comcam-pv
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
+    name: {{ template "uws-api-server.chart" . }}-nfs-oods-comcam
 spec:
   capacity:
     storage: 1Gi
@@ -91,3 +100,41 @@ spec:
   accessModes:
   - ReadWriteMany
   storageClassName: ""
+  selector:
+    matchLabels:
+      name: {{ template "uws-api-server.chart" . }}-nfs-oods-comcam
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ template "uws-api-server.fullname" . }}-nfs-oods-auxtel-pv
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+    name: {{ template "uws-api-server.chart" . }}-nfs-oods-auxtel
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: lsst-l1-cl-arctl.ncsa.illinois.edu
+    path: /data/lsstdata/NTS/auxTel/oods/butler/repo
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-oods-auxtel-pvc
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  storageClassName: ""
+  selector:
+    matchLabels:
+      name: {{ template "uws-api-server.chart" . }}-nfs-oods-auxtel
