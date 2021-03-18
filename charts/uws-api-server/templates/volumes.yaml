@@ -84,7 +84,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: lsst-l1-cl-arctl.ncsa.illinois.edu
-    path: /data/lsstdata/NTS/comcam/oods/butler/repo
+    path: /data/lsstdata/NTS/comcam/oods/gen3butler/repo
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -119,7 +119,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: lsst-l1-cl-arctl.ncsa.illinois.edu
-    path: /data/lsstdata/NTS/auxTel/oods/butler/repo
+    path: /data/lsstdata/NTS/auxTel/oods/gen3butler/repo
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
