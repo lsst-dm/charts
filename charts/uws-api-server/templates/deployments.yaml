@@ -15,6 +15,9 @@ spec:
       labels:
         app: {{ template "uws-api-server.fullname" . }}
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 202
       serviceAccountName: job-manager
       volumes:
       {{ if eq .Values.targetCluster "int" }}
@@ -24,9 +27,6 @@ spec:
       - name: project-files
         persistentVolumeClaim:
           claimName: lsst-dm-projects-pvc
-      # - name: repo-files
-      #   persistentVolumeClaim:
-      #     claimName: lsst-dm-repo-pvc
       {{ else if eq .Values.targetCluster "nts" }}
       - name: job-files
         persistentVolumeClaim:
@@ -34,37 +34,31 @@ spec:
       {{ end }}
       containers:
       - name: uws-api-server
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 202
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
         command: ["/bin/bash", "-c", "cd server && python3 server.py"]
         ports:
         - containerPort: 8080
         volumeMounts:
-        {{ if eq .Values.targetCluster "int" }}
         - name: job-files
           mountPath: /uws
         - name: project-files
-          mountPath: /project/krughoff/projects
-          subPath: krughoff/projects
-        # - name: repo-files
-        #   mountPath: /repo
-        #   readOnly: true
-        {{ else if eq .Values.targetCluster "nts" }}
-        - name: job-files
-          mountPath: /uws
-        {{ end }}
+          mountPath: "/project/{{ .Values.projectSubpath }}"
+          subPath: "{{ .Values.projectSubpath }}"
+          
         env:
-          - name: "UWS_ROOT_DIR"
-            value: "/uws"
-          - name: API_DOMAIN
-            value: {{ template "uws-api-server.fullname" . }}
-          - name: API_PORT
-            value: "8080"
-          - name: LOG_LEVEL
-            value: "DEBUG"
+        - name: "UWS_ROOT_DIR"
+          value: "/uws"
+        - name: API_DOMAIN
+          value: {{ template "uws-api-server.fullname" . }}
+        - name: API_PORT
+          value: "8080"
+        - name: LOG_LEVEL
+          value: "DEBUG"
+        - name: TARGET_CLUSTER
+          value: "{{ .Values.targetCluster }}"
+        - name: PROJECT_SUBPATH
+          value: "{{ .Values.projectSubpath }}"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -89,7 +83,11 @@ spec:
         imagePullPolicy: Always
         command: ["/bin/bash", "-c", "sleep 1000d"]
         env:
-          - name: API_DOMAIN
-            value: {{ template "uws-api-server.fullname" . }}
-          - name: API_PORT
-            value: "80"
+        - name: API_DOMAIN
+          value: {{ template "uws-api-server.fullname" . }}
+        - name: API_PORT
+          value: "80"
+        - name: TARGET_CLUSTER
+          value: "{{ .Values.targetCluster }}"
+        - name: PROJECT_SUBPATH
+          value: "{{ .Values.projectSubpath }}"

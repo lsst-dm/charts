@@ -10,3 +10,6 @@ image:
 
 # Target Kubernetes cluster. Supported values are NCSA Test Stand ("nts") and NCSA Integration ("int")
 targetCluster: ""
+
+# The subpath under /project to mount in the job containers
+projectSubpath: ""
