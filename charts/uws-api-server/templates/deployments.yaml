@@ -18,6 +18,7 @@ spec:
       securityContext:
         runAsUser: 1000
         runAsGroup: 202
+        fsGroup: 202
       serviceAccountName: job-manager
       volumes:
       {{ if eq .Values.targetCluster "int" }}
@@ -42,9 +43,11 @@ spec:
         volumeMounts:
         - name: job-files
           mountPath: /uws
+        {{ if eq .Values.targetCluster "int" }}
         - name: project-files
           mountPath: "/project/{{ .Values.projectSubpath }}"
           subPath: "{{ .Values.projectSubpath }}"
+        {{ end }}
           
         env:
         - name: "UWS_ROOT_DIR"
