@@ -173,6 +173,6 @@ spec:
   storageClassName: ""
   selector:
     matchLabels:
-      name: {{ template "uws-api-server.chart" . }}-repo-pv
+      name: {{ template "uws-api-server.chart" . }}-repo
 
 {{ end }}
