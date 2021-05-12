@@ -19,7 +19,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 202
         fsGroup: 202
-      serviceAccountName: job-manager
+      serviceAccountName: {{ template "uws-api-server.fullname" . }}-job-manager
       volumes:
       {{ if eq .Values.targetCluster "int" }}
       - name: job-files
