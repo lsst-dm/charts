@@ -13,3 +13,6 @@ targetCluster: ""
 
 # The subpath under /project to mount in the job containers
 projectSubpath: ""
+
+# Log level of server. Set to "DEBUG" for highest verbosity.
+logLevel: "WARNING"
