@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: lsstdm/uws-api-server
-  tag: latest
+  tag: dev
 
 # Target Kubernetes cluster. Supported values are NCSA Test Stand ("nts") and NCSA Integration ("int")
 targetCluster: ""

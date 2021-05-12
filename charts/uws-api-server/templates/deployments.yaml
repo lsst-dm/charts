@@ -32,6 +32,9 @@ spec:
       - name: job-files
         persistentVolumeClaim:
           claimName: nfs-scratch-pvc
+      {{ else if eq .Values.targetCluster "summit" }}
+      - name: job-files
+        emptyDir: {}
       {{ end }}
       containers:
       - name: uws-api-server
@@ -48,7 +51,6 @@ spec:
           mountPath: "/project/{{ .Values.projectSubpath }}"
           subPath: "{{ .Values.projectSubpath }}"
         {{ end }}
-          
         env:
         - name: "UWS_ROOT_DIR"
           value: "/uws"
