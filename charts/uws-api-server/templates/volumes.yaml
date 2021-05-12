@@ -190,7 +190,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: lsst-l1-cl-arctl.ncsa.illinois.edu
-    path: /project
+    path: /lsstdata/user/staff/project
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
