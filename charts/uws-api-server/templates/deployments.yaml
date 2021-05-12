@@ -65,7 +65,7 @@ spec:
         - name: API_PORT
           value: "8080"
         - name: LOG_LEVEL
-          value: "DEBUG"
+          value: "{{ .Values.logLevel | default WARNING }}"
         - name: TARGET_CLUSTER
           value: "{{ .Values.targetCluster }}"
         - name: PROJECT_SUBPATH

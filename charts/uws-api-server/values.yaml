@@ -6,10 +6,13 @@ replicaCount: 1
 
 image:
   repository: lsstdm/uws-api-server
-  tag: dev
+  tag: latest
 
 # Target Kubernetes cluster. Supported values are NCSA Test Stand ("nts") and NCSA Integration ("int")
 targetCluster: ""
 
 # The subpath under /project to mount in the job containers
 projectSubpath: ""
+
+# Log level of server. Set to "DEBUG" for highest verbosity.
+logLevel: "WARNING"
