@@ -189,7 +189,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: lsst-l1-cl-arctl.ncsa.illinois.edu
+    server: lsst-nfs.ncsa.illinois.edu
     path: /user/staff/project
 ---
 apiVersion: v1
