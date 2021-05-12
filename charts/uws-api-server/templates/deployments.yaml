@@ -31,7 +31,7 @@ spec:
       {{ else if eq .Values.targetCluster "nts" }}
       - name: job-files
         persistentVolumeClaim:
-          claimName: nfs-scratch-pvc
+          claimName: {{ template "uws-api-server.fullname" . }}-nfs-scratch-pvc
       {{ else if eq .Values.targetCluster "summit" }}
       - name: job-files
         emptyDir: {}
