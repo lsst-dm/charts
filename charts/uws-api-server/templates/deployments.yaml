@@ -68,19 +68,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: uws-api-client
+  name: {{ template "uws-api-server.fullname" . }}-client
   labels:
-    app: uws-api-client
+    app: {{ template "uws-api-server.fullname" . }}-client
     chart: {{ template "uws-api-server.chart" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: uws-api-client
+      app: {{ template "uws-api-server.fullname" . }}-client
   template:
     metadata:
       labels:
-        app: uws-api-client
+        app: {{ template "uws-api-server.fullname" . }}-client
     spec:
       containers:
       - name: uws-api-client

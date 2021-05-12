@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-data-pvc
+  name: {{ template "uws-api-server.fullname" . }}-nfs-data-pvc
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
@@ -55,7 +55,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-scratch-pvc
+  name: {{ template "uws-api-server.fullname" . }}-nfs-scratch-pvc
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
@@ -90,7 +90,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-oods-comcam-pvc
+  name: {{ template "uws-api-server.fullname" . }}-nfs-oods-comcam-pvc
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
@@ -125,7 +125,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-oods-auxtel-pvc
+  name: {{ template "uws-api-server.fullname" . }}-nfs-oods-auxtel-pvc
   labels:
     app: {{ template "uws-api-server.fullname" . }}
     chart: {{ template "uws-api-server.chart" . }}
