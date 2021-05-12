@@ -174,5 +174,40 @@ spec:
   selector:
     matchLabels:
       name: {{ template "uws-api-server.chart" . }}-repo
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ template "uws-api-server.fullname" . }}-project-pv
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+    name: {{ template "uws-api-server.chart" . }}-project
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: lsst-l1-cl-arctl.ncsa.illinois.edu
+    path: /project
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "uws-api-server.fullname" . }}-project-pvc
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  storageClassName: ""
+  selector:
+    matchLabels:
+      name: {{ template "uws-api-server.chart" . }}-project
 
 {{ end }}
