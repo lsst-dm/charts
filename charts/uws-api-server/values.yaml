@@ -11,8 +11,35 @@ image:
 # Target Kubernetes cluster. Supported values are NCSA Test Stand ("nts") and NCSA Integration ("int")
 targetCluster: ""
 
-# The subpath under /project to mount in the job containers
-projectSubpath: ""
-
 # Log level of server. Set to "DEBUG" for highest verbosity.
 logLevel: "WARNING"
+
+server:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 202
+    fsGroup: 202
+
+job:
+  image:
+    repository: "lsstsqre/centos"
+    tag: "d_latest"
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 202
+    fsGroup: 202
+
+# Central data volumes to be mounted in job containers
+volumes: []
+# - name: repo
+#   claimName: repo-pvc
+#   mountPath: "/repo"
+#   subPath: ""
+#   readOnly: false
+
+# Server working directory to store generated job data
+workingVolume:
+  name: job-files
+  claimName: ""
+  mountPath: "/uws"
+  subPath: ""
