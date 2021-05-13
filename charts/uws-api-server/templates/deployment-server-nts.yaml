@@ -1,35 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}
+  name: {{ .Release.Name }}-server
   labels:
-    app: {{ template "uws-api-server.fullname" . }}
+    app: {{ .Release.Name }}-server
     chart: {{ template "uws-api-server.chart" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "uws-api-server.fullname" . }}
+      app: {{ .Release.Name }}-server
   template:
     metadata:
       labels:
-        app: {{ template "uws-api-server.fullname" . }}
+        app: {{ .Release.Name }}-server
     spec:
       securityContext:
-        runAsUser: {{ .Values.server.securityContext.runAsUser }}
-        runAsGroup: {{ .Values.server.securityContext.runAsGroup }}
-        fsGroup: {{ .Values.server.securityContext.fsGroup }}
-      serviceAccountName: {{ template "uws-api-server.fullname" . }}-job-manager
+      {{ toYaml .Values.server.securityContext | nindent 8 }}
+      serviceAccountName: {{ .Release.Name }}-job-manager
       volumes:
-      - name: job-files
+      # Server configuration
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}-configmap
+      # Volume to host job data
+      - name: "{{ .Values.workingVolume.name }}"
         persistentVolumeClaim:
-          claimName: {{ template "uws-api-server.fullname" . }}-nfs-scratch-pvc
-      - name: repo
+          claimName: "{{ .Values.workingVolume.claimName }}"
+      {{- range .Values.volumes }}
+      - name: "{{ .name }}"
         persistentVolumeClaim:
-          claimName: {{ template "uws-api-server.fullname" . }}-repo-pvc
-      - name: project-files
-        persistentVolumeClaim:
-          claimName: {{ template "uws-api-server.fullname" . }}-project-pvc
+          claimName: "{{ .claimName }}"
+      {{- end }}
       containers:
       - name: uws-api-server
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -38,23 +40,18 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: job-files
-          mountPath: /uws
-        - name: repo
-          mountPath: "/repo"
-        - name: project-files
-          mountPath: "/project/{{ .Values.projectSubpath }}"
-          subPath: "{{ .Values.projectSubpath }}"
-        env:
-        - name: "UWS_ROOT_DIR"
-          value: "/uws"
-        - name: API_DOMAIN
-          value: {{ template "uws-api-server.fullname" . }}
-        - name: API_PORT
-          value: "8080"
-        - name: LOG_LEVEL
-          value: "{{ .Values.logLevel | default "WARNING" }}"
-        - name: TARGET_CLUSTER
-          value: "{{ .Values.targetCluster }}"
-        - name: PROJECT_SUBPATH
-          value: "{{ .Values.projectSubpath }}"
+        # Working directory for job data
+        - name: "{{ .Values.workingVolume.name }}"
+          mountPath: "{{ .Values.workingVolume.mountPath }}"
+          subPath: "{{ .Values.workingVolume.subPath }}"
+        # Server configuration
+        - name: config
+          subPath: config
+          mountPath: /etc/config/uws.yaml
+        # Shared data volumes (environment-specific)
+        {{- range .Values.volumes }}
+        - name: "{{ .name }}"
+          mountPath: "{{ .mountPath }}"
+          subPath: "{{ .subPath }}"
+          readOnly: {{ .readOnly }}
+        {{- end }}

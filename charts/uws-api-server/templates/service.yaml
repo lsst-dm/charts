@@ -1,13 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}
+  name: {{ .Release.Name }}-server
   labels:
-    app: {{ template "uws-api-server.fullname" . }}
+    app: {{ .Release.Name }}-server
     chart: {{ template "uws-api-server.chart" . }}
 spec:
   ports:
   - port: 80
     targetPort: 8080
   selector:
-    app: {{ template "uws-api-server.fullname" . }}
+    app: {{ .Release.Name }}-server

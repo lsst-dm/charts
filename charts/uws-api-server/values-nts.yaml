@@ -1,1 +1,19 @@
 targetCluster: "nts"
+
+workingVolume:
+  name: job-files
+  claimName: uws-server-pvc
+  mountPath: "/uws"
+  subPath: ""
+
+volumes:
+- name: repo
+  claimName: repo-pvc
+  mountPath: "/repo"
+  subPath: ""
+  readOnly: false
+- name: project
+  claimName: project-pvc
+  mountPath: "/project"
+  subPath: ""
+  readOnly: false

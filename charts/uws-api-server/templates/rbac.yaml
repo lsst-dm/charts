@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}-job-manager
+  name: {{ .Release.Name }}-job-manager
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}-job-manager-role
+  name: {{ .Release.Name }}-job-manager-role
 rules:
   - apiGroups: ["batch"]
     resources: ["jobs", "jobs/status", "configmaps"]
@@ -18,11 +18,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}-job-manager-rolebinding
+  name: {{ .Release.Name }}-job-manager-rolebinding
 roleRef:
   kind: Role
-  name: {{ template "uws-api-server.fullname" . }}-job-manager-role
+  name: {{ .Release.Name }}-job-manager-role
   apiGroup: rbac.authorization.k8s.io
 subjects:
   - kind: ServiceAccount
-    name: {{ template "uws-api-server.fullname" . }}-job-manager
+    name: {{ .Release.Name }}-job-manager
