@@ -1,0 +1,33 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "uws-api-server.fullname" . }}-client
+  labels:
+    app: {{ template "uws-api-server.fullname" . }}-client
+    chart: {{ template "uws-api-server.chart" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "uws-api-server.fullname" . }}-client
+  template:
+    metadata:
+      labels:
+        app: {{ template "uws-api-server.fullname" . }}-client
+    spec:
+      containers:
+      - name: uws-api-client
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "sleep 1000d"]
+        env:
+        - name: API_DOMAIN
+          value: {{ template "uws-api-server.fullname" . }}
+        - name: API_PORT
+          value: "80"
+        - name: TARGET_CLUSTER
+          value: "{{ .Values.targetCluster }}"
+        - name: PROJECT_SUBPATH
+          value: "{{ .Values.projectSubpath }}"

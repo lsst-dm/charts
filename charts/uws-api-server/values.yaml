@@ -16,3 +16,9 @@ projectSubpath: ""
 
 # Log level of server. Set to "DEBUG" for highest verbosity.
 logLevel: "WARNING"
+
+server:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 202
+    fsGroup: 202
