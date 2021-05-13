@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}-uws-server-pv
+  name: {{ template "uws-api-server.fullname" $ }}-uws-server-pv
   labels:
-    app: {{ template "uws-api-server.fullname" . }}
-    chart: {{ template "uws-api-server.chart" . }}
-    name: {{ template "uws-api-server.chart" . }}-uws-server
+    app: {{ template "uws-api-server.fullname" $ }}
+    chart: {{ template "uws-api-server.chart" $ }}
+    name: {{ template "uws-api-server.chart" $ }}-uws-server
 spec:
   capacity:
     storage: 1Gi
@@ -21,8 +21,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: uws-server-pvc
   labels:
-    app: {{ template "uws-api-server.fullname" . }}
-    chart: {{ template "uws-api-server.chart" . }}
+    app: {{ template "uws-api-server.fullname" $ }}
+    chart: {{ template "uws-api-server.chart" $ }}
 spec:
   resources:
     requests:
@@ -32,18 +32,18 @@ spec:
   storageClassName: ""
   selector:
     matchLabels:
-      name: {{ template "uws-api-server.chart" . }}-uws-server
+      name: {{ template "uws-api-server.chart" $ }}-uws-server
 
 {{- range .Values.volumes }}
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ template "uws-api-server.fullname" . }}-{{ .name }}-pv
+  name: {{ template "uws-api-server.fullname" $ }}-{{ .name }}-pv
   labels:
-    app: {{ template "uws-api-server.fullname" . }}
-    chart: {{ template "uws-api-server.chart" . }}
-    name: {{ template "uws-api-server.chart" . }}-{{ .name }}
+    app: {{ template "uws-api-server.fullname" $ }}
+    chart: {{ template "uws-api-server.chart" $ }}
+    name: {{ template "uws-api-server.chart" $ }}-{{ .name }}
 spec:
   capacity:
     storage: 1Gi
@@ -58,8 +58,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ .claimName }}
   labels:
-    app: {{ template "uws-api-server.fullname" . }}
-    chart: {{ template "uws-api-server.chart" . }}
+    app: {{ template "uws-api-server.fullname" $ }}
+    chart: {{ template "uws-api-server.chart" $ }}
 spec:
   resources:
     requests:
@@ -69,5 +69,5 @@ spec:
   storageClassName: ""
   selector:
     matchLabels:
-      name: {{ template "uws-api-server.chart" . }}-{{ .name }}
+      name: {{ template "uws-api-server.chart" $ }}-{{ .name }}
 {{- end }}
