@@ -154,8 +154,8 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: lsst-l1-cl-arctl.ncsa.illinois.edu
-    path: /repo
+    server: lsst-nfs.ncsa.illinois.edu
+    path: /user/repo
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
