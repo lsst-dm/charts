@@ -10,7 +10,7 @@ data:
       {{- toYaml .Values.volumes | nindent 6 }}
     server:
       service: {{ .Release.Name }}-server
-      port: 80
+      port: 8080
       protocol: "http"
       basePath: "/api/v1"
       logLevel: "{{ .Values.logLevel }}"
