@@ -7,7 +7,7 @@ workingVolume:
   exportPath: "/scratch"
   claimName: uws-server-pvc
   mountPath: "/uws"
-  subPath: "/uws"
+  subPath: "uws"
 
 volumes:
 - name: project
