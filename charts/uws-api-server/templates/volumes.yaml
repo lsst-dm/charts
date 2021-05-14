@@ -14,7 +14,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: {{ .Values.workingVolume.server }}
-    path: /scratch/uws
+    path: {{ .Values.workingVolume.exportPath }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

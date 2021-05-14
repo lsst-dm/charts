@@ -4,6 +4,7 @@ hostname: lsst-nts-k8s.ncsa.illinois.edu
 workingVolume:
   name: job-files
   server: lsst-l1-cl-arctl.ncsa.illinois.edu
+  exportPath: "/scratch/uws"
   claimName: uws-server-pvc
   mountPath: "/uws"
   subPath: ""
