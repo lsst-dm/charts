@@ -13,7 +13,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: lsst-l1-cl-arctl.ncsa.illinois.edu
+    server: {{ .Values.workingVolume.server }}
     path: /scratch/uws
 ---
 apiVersion: v1

@@ -3,6 +3,7 @@ hostname: summit-lsp.lsst.codes
 
 workingVolume:
   name: job-files
+  server: nfs1.cp.lsst.org
   claimName: uws-server-pvc
   mountPath: "/uws"
   subPath: ""
