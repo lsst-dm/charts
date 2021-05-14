@@ -1,4 +1,5 @@
 targetCluster: "nts"
+hostname: lsst-nts-k8s.ncsa.illinois.edu
 
 workingVolume:
   name: job-files

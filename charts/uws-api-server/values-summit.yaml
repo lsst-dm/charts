@@ -1,1 +1,34 @@
 targetCluster: "summit"
+hostname: summit-lsp.lsst.codes
+
+workingVolume:
+  name: job-files
+  claimName: uws-server-pvc
+  mountPath: "/uws"
+  subPath: ""
+
+volumes:
+- name: repo
+  server: lsst-l1-cl-arctl.ncsa.illinois.edu
+  claimName: repo-pvc
+  mountPath: "/repo"
+  subPath: ""
+  readOnly: false
+- name: project
+  server: lsst-l1-cl-arctl.ncsa.illinois.edu
+  claimName: project-pvc
+  mountPath: "/project"
+  subPath: ""
+  readOnly: false
+- name: data
+  server: lsst-l1-cl-arctl.ncsa.illinois.edu
+  claimName: data-pvc
+  mountPath: "/data/lsstdata/NTS"
+  subPath: ""
+  readOnly: true
+- name: home
+  server: lsst-l1-cl-arctl.ncsa.illinois.edu
+  claimName: home-pvc
+  mountPath: "/jhome"
+  subPath: ""
+  readOnly: false

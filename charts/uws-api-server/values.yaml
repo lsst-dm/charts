@@ -8,8 +8,9 @@ image:
   repository: lsstdm/uws-api-server
   tag: latest
 
-# Target Kubernetes cluster. Supported values are NCSA Test Stand ("nts") and NCSA Integration ("int")
+# Target Kubernetes cluster
 targetCluster: ""
+hostname: ""
 
 # Log level of server. Set to "DEBUG" for highest verbosity.
 logLevel: "WARNING"
