@@ -51,7 +51,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: {{ .server }}
-    path: {{ .mountPath }}
+    path: {{ .exportPath }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
