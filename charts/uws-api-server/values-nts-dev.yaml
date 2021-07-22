@@ -6,7 +6,7 @@ workingVolume:
   name: job-files
   server: lsst-l1-cl-arctl.ncsa.illinois.edu
   exportPath: "/scratch/uws"
-  claimName: uws-dev-server-pvc
+  claimName: dev-uws-server-pvc
   mountPath: "/uws"
   subPath: "dev"
 
