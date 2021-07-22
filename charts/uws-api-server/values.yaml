@@ -11,6 +11,7 @@ image:
 # Target Kubernetes cluster
 targetCluster: ""
 hostname: ""
+basePath: "uws-server"
 
 # Log level of server. Set to "DEBUG" for highest verbosity.
 logLevel: "WARNING"
