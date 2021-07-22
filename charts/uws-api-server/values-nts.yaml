@@ -1,6 +1,9 @@
 targetCluster: "nts"
 hostname: lsst-nts-k8s.ncsa.illinois.edu
 
+image:
+  tag: v1.0.0
+
 workingVolume:
   name: job-files
   server: lsst-l1-cl-arctl.ncsa.illinois.edu

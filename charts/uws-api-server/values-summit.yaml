@@ -1,6 +1,9 @@
 targetCluster: "summit"
 hostname: summit-lsp.lsst.codes
 
+image:
+  tag: v1.0.0
+
 workingVolume:
   name: job-files
   server: nfs1.cp.lsst.org
