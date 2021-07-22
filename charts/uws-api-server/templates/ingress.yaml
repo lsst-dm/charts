@@ -2,7 +2,7 @@
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: uws-server
+  name: {{ template "uws-api-server.fullname" $ }}-uws-server
   namespace: uws
   annotations:
     kubernetes.io/ingress.class: nginx
