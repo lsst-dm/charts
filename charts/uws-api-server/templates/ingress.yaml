@@ -16,7 +16,7 @@ spec:
     - host: {{ .Values.hostname }}
       http:
         paths:
-          - path: /uws-server(/|$)(.*)
+          - path: /{{ .Values.basePath }}(/|$)(.*)
             backend:
               serviceName: uws-server
               servicePort: 80

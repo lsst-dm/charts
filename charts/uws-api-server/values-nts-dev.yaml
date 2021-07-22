@@ -1,5 +1,6 @@
 targetCluster: "nts"
 hostname: lsst-nts-k8s.ncsa.illinois.edu
+basePath: "dev-uws-server"
 
 workingVolume:
   name: job-files
