@@ -2,6 +2,9 @@ targetCluster: "nts"
 hostname: lsst-nts-k8s.ncsa.illinois.edu
 basePath: "dev-uws-server"
 
+client:
+  enabled: true
+
 workingVolume:
   name: job-files
   server: lsst-l1-cl-arctl.ncsa.illinois.edu

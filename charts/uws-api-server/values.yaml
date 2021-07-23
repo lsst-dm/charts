@@ -22,6 +22,9 @@ server:
     runAsGroup: 202
     fsGroup: 202
 
+client:
+  enabled: false
+
 job:
   image:
     repository: "lsstsqre/centos"
