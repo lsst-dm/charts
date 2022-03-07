@@ -10,7 +10,8 @@ Universal Worker Service API Server
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Timothy Andrew Manning | manninga@illinois.edu |  |
+| Kian-Tat Lim | ktl@slac.standford.edu |  |
+| Michael Reuter | mareuter@lst.org |  |
 
 ## Values
 
