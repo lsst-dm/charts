@@ -3,6 +3,21 @@ entries:
   uws-api-server:
   - apiVersion: v1
     appVersion: 1.0.0
+    created: "2022-03-10T18:37:05.362214124Z"
+    description: Universal Worker Service API Server
+    digest: a5110207ae75c533b882251267b9331ea5f0d9db084fb6890ada09b56f9c0cad
+    home: https://github.com/lsst-dm/uws-api-server
+    maintainers:
+    - email: ktl@slac.stanford.edu
+      name: Kian-Tat Lim
+    - email: mareuter@lsst.org
+      name: Michael Reuter
+    name: uws-api-server
+    urls:
+    - https://github.com/lsst-dm/charts/releases/download/uws-api-server-1.4.0/uws-api-server-1.4.0.tgz
+    version: 1.4.0
+  - apiVersion: v1
+    appVersion: 1.0.0
     created: "2021-07-23T15:24:12.352800508Z"
     description: Universal Worker Service API Server
     digest: fc1d39b0b755907e1af213bef66514c7ef2e34406546f278addddca56d465f9d
