@@ -10,8 +10,8 @@ Universal Worker Service API Server
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Kian-Tat Lim | ktl@slac.standford.edu |  |
-| Michael Reuter | mareuter@lst.org |  |
+| Kian-Tat Lim | ktl@slac.stanford.edu |  |
+| Michael Reuter | mareuter@lsst.org |  |
 
 ## Values
 

@@ -6,6 +6,6 @@ version: "1.4.0"
 home: https://github.com/lsst-dm/uws-api-server
 maintainers:
   - name: Kian-Tat Lim
-    email: ktl@slac.standford.edu
+    email: ktl@slac.stanford.edu
   - name: Michael Reuter
-    email: mareuter@lst.org
+    email: mareuter@lsst.org
