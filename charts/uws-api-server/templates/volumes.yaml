@@ -9,7 +9,7 @@ metadata:
     name: {{ template "uws-api-server.chart" $ }}-uws-server
 spec:
   capacity:
-    storage: 1Gi
+    storage: 100Gi
   accessModes:
     - ReadWriteMany
   nfs:
@@ -26,7 +26,7 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 1Gi
+      storage: 100Gi
   accessModes:
   - ReadWriteMany
   storageClassName: ""
@@ -46,7 +46,7 @@ metadata:
     name: {{ template "uws-api-server.chart" $ }}-{{ .name }}
 spec:
   capacity:
-    storage: 1Gi
+    storage: 100Gi
   accessModes:
     - ReadWriteMany
   nfs:
@@ -63,7 +63,7 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 1Gi
+      storage: 100Gi
   accessModes:
   - ReadWriteMany
   storageClassName: ""
